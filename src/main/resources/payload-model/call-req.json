@@ -1,0 +1,11 @@
+{
+  "id": {
+    "type": "string"
+  },
+  "action": {
+    "type": "string"
+  },
+  "payload": {
+    "type": "string"
+  }
+}

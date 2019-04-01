@@ -1,0 +1,11 @@
+export interface IPayload{
+
+}
+#for(model : models)
+export interface #(model.name) extends IPayload {
+    #for(prop : model.props)
+    #(prop.comment?"// "+prop.comment:"")
+    #(prop.name)#(prop.optional?"?":""): #(prop.type);
+    #end
+}
+#end

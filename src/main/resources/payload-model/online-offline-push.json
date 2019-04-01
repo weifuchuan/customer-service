@@ -1,0 +1,11 @@
+{
+  "id": {
+    "type": "string"
+  },
+  "nickName": {
+    "type": "string"
+  },
+  "avatar": {
+    "type": "string"
+  }
+}

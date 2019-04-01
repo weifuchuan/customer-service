@@ -1,0 +1,1 @@
+ bash -c " bash \"$( ./gen-ts.sh )\"; "

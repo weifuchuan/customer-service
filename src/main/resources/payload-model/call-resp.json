@@ -1,0 +1,8 @@
+{
+  "id": {
+    "type": "string"
+  },
+  "ret": {
+    "type": "string"
+  }
+}
