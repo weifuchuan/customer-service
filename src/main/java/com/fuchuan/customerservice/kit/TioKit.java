@@ -5,7 +5,7 @@ import com.fuchuan.customerservice.common.ImPacketCoder;
 import org.tio.core.ChannelContext;
 import org.tio.core.Tio;
 import org.tio.utils.lock.SetWithLock;
-import org.tio.websocket.common.WsResponse;
+import com.fuchuan.customerservice.server.websocket.common.WsResponse;
 
 import java.util.Collections;
 import java.util.List;

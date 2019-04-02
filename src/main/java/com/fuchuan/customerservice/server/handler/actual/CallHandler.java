@@ -21,7 +21,7 @@ import org.tio.core.ChannelContext;
 import org.tio.core.Tio;
 import org.tio.utils.lock.SetWithLock;
 import org.tio.utils.page.Page;
-import org.tio.websocket.common.WsRequest;
+import com.fuchuan.customerservice.server.websocket.common.WsRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -65,8 +65,6 @@ public class CallHandler extends BaseActualHandler {
                 new CallRespPayload()
                     .setId(packet.getPayload().getId())
                     .setRet(JSON.toJSONString(ret))));
-    //    log.info("action = {}, ret = {}", packet.getPayload().getAction(),
-    // JSON.toJSONString(ret));
     return null;
   }
 

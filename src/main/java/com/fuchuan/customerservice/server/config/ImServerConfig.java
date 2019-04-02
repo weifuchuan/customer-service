@@ -1,7 +1,7 @@
 package com.fuchuan.customerservice.server.config;
 
 import org.tio.utils.time.Time;
-import org.tio.websocket.server.WsServerConfig;
+import com.fuchuan.customerservice.server.websocket.server.WsServerConfig;
 
 public class ImServerConfig extends WsServerConfig {
   public ImServerConfig() {

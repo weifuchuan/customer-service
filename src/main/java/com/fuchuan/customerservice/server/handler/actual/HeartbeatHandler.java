@@ -10,7 +10,7 @@ import com.fuchuan.customerservice.server.handler.HandlerForCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.ChannelContext;
-import org.tio.websocket.common.WsRequest;
+import com.fuchuan.customerservice.server.websocket.common.WsRequest;
 
 @HandlerForCommand(Command.COMMAND_HEARTBEAT_REQ)
 public class HeartbeatHandler extends BaseActualHandler {

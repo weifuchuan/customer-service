@@ -1,6 +1,5 @@
 package com.fuchuan.customerservice.server.handler;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
 import com.fuchuan.customerservice.common.*;
 import com.fuchuan.customerservice.common.payload.OnlineOfflinePushPayload;
 import com.fuchuan.customerservice.kit.TioKit;
@@ -14,10 +13,11 @@ import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
 import org.tio.utils.lock.ReadLockHandler;
 import org.tio.utils.lock.SetWithLock;
-import org.tio.websocket.common.WsRequest;
-import org.tio.websocket.server.handler.IWsMsgHandler;
+import com.fuchuan.customerservice.server.websocket.common.WsRequest;
+import com.fuchuan.customerservice.server.websocket.server.handler.IWsMsgHandler;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public class MainHandler implements IWsMsgHandler {
@@ -96,65 +96,65 @@ public class MainHandler implements IWsMsgHandler {
         Collections.unmodifiableMap(Kv.create().set(Kv.by("type", "close").set("ctx", ctx))));
     return null;
   }
-
-  @Deprecated
-  private void handleWaiterOnline(AccountBaseInfo account, ChannelContext ctx) {
-    C.idToOnlineWaiterCtxSet.compute(
-        ctx.userid,
-        (id, ctxSet) -> {
-          if (ctxSet == null) {
-            ctxSet = new ConcurrentHashSet<>();
-          }
-          if (ctxSet.isEmpty()) {
-            SetWithLock<ChannelContext> allChannelContexts =
-                Tio.getAllChannelContexts(ctx.getGroupContext());
-            allChannelContexts.handle(
-                (ReadLockHandler<Set<ChannelContext>>)
-                    (ctxs) -> {
-                      TioKit.sendWsToCtxSetByText(
-                          ctxs,
-                          new ImPacket<OnlineOfflinePushPayload>()
-                              .setCommand(Command.COMMAND_ONLINE_PUSH)
-                              .setPayload(
-                                  new OnlineOfflinePushPayload()
-                                      .setId(account.getId())
-                                      .setNickName(account.getNickName())
-                                      .setAvatar(account.getAvatar())));
-                    });
-          }
-          ctxSet.add(ctx);
-          return ctxSet;
-        });
-  }
-
-  @Deprecated
-  private void handleWaiterOffline(ChannelContext ctx) {
-    C.idToOnlineWaiterCtxSet.compute(
-        ctx.userid,
-        (id, ctxSet) -> {
-          if (ctxSet == null) {
-            ctxSet = new ConcurrentHashSet<>();
-          }
-          ctxSet.remove(ctx);
-          if (ctxSet.isEmpty()) {
-            AccountBaseInfo account = (AccountBaseInfo) ctx.getAttribute("account");
-            SetWithLock<ChannelContext> allChannelContexts =
-                Tio.getAllChannelContexts(ctx.getGroupContext());
-            allChannelContexts.handle(
-                (ReadLockHandler<Set<ChannelContext>>)
-                    (ctxs) -> {
-                      TioKit.sendWsToCtxSetByText(
-                          ctxs,
-                          new ImPacket<OnlineOfflinePushPayload>()
-                              .setCommand(Command.COMMAND_OFFLINE_PUSH)
-                              .setPayload(
-                                  new OnlineOfflinePushPayload()
-                                      .setId(account.getId())
-                                      .setNickName(account.getNickName())
-                                      .setAvatar(account.getAvatar())));
-                    });
-          }
-          return ctxSet;
-        });
-  }
+//
+//  @Deprecated
+//  private void handleWaiterOnline(AccountBaseInfo account, ChannelContext ctx) {
+//    C.idToOnlineWaiterCtxSet.compute(
+//        ctx.userid,
+//        (id, ctxSet) -> {
+//          if (ctxSet == null) {
+//            ctxSet = new HashSet<>();
+//          }
+//          if (ctxSet.isEmpty()) {
+//            SetWithLock<ChannelContext> allChannelContexts =
+//                Tio.getAllChannelContexts(ctx.getGroupContext());
+//            allChannelContexts.handle(
+//                (ReadLockHandler<Set<ChannelContext>>)
+//                    (ctxs) -> {
+//                      TioKit.sendWsToCtxSetByText(
+//                          ctxs,
+//                          new ImPacket<OnlineOfflinePushPayload>()
+//                              .setCommand(Command.COMMAND_ONLINE_PUSH)
+//                              .setPayload(
+//                                  new OnlineOfflinePushPayload()
+//                                      .setId(account.getId())
+//                                      .setNickName(account.getNickName())
+//                                      .setAvatar(account.getAvatar())));
+//                    });
+//          }
+//          ctxSet.add(ctx);
+//          return ctxSet;
+//        });
+//  }
+//
+//  @Deprecated
+//  private void handleWaiterOffline(ChannelContext ctx) {
+//    C.idToOnlineWaiterCtxSet.compute(
+//        ctx.userid,
+//        (id, ctxSet) -> {
+//          if (ctxSet == null) {
+//            ctxSet = new ConcurrentHashSet<>();
+//          }
+//          ctxSet.remove(ctx);
+//          if (ctxSet.isEmpty()) {
+//            AccountBaseInfo account = (AccountBaseInfo) ctx.getAttribute("account");
+//            SetWithLock<ChannelContext> allChannelContexts =
+//                Tio.getAllChannelContexts(ctx.getGroupContext());
+//            allChannelContexts.handle(
+//                (ReadLockHandler<Set<ChannelContext>>)
+//                    (ctxs) -> {
+//                      TioKit.sendWsToCtxSetByText(
+//                          ctxs,
+//                          new ImPacket<OnlineOfflinePushPayload>()
+//                              .setCommand(Command.COMMAND_OFFLINE_PUSH)
+//                              .setPayload(
+//                                  new OnlineOfflinePushPayload()
+//                                      .setId(account.getId())
+//                                      .setNickName(account.getNickName())
+//                                      .setAvatar(account.getAvatar())));
+//                    });
+//          }
+//          return ctxSet;
+//        });
+//  }
 }

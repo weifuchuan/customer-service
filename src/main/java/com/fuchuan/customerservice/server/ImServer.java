@@ -5,10 +5,10 @@ import com.fuchuan.customerservice.server.config.ImServerConfig;
 import org.tio.core.stat.IpStatListener;
 import org.tio.server.ServerGroupContext;
 import org.tio.utils.jfinal.P;
-import org.tio.websocket.server.WsServerAioListener;
-import org.tio.websocket.server.WsServerConfig;
-import org.tio.websocket.server.WsServerStarter;
-import org.tio.websocket.server.handler.IWsMsgHandler;
+import com.fuchuan.customerservice.server.websocket.server.WsServerAioListener;
+import com.fuchuan.customerservice.server.websocket.server.WsServerConfig;
+import com.fuchuan.customerservice.server.websocket.server.WsServerStarter;
+import com.fuchuan.customerservice.server.websocket.server.handler.IWsMsgHandler;
 
 import java.io.IOException;
 

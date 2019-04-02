@@ -7,7 +7,7 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.ChannelContext;
-import org.tio.websocket.common.WsRequest;
+import com.fuchuan.customerservice.server.websocket.common.WsRequest;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

@@ -11,16 +11,28 @@
   <parent>
     <groupId>org.t-io</groupId>
     <artifactId>tio-parent</artifactId>
-    <version>3.2.8.v20190326-RELEASE</version>
+    <version>3.2.9.v20190401-RELEASE</version>
   </parent>
 
   <dependencies>
-    <dependency>
-      <groupId>org.t-io</groupId>
-      <artifactId>tio-websocket-server</artifactId>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.t-io</groupId>-->
+<!--      <artifactId>tio-websocket-server</artifactId>-->
+<!--    </dependency>-->
+      <dependency>
+          <groupId>org.t-io</groupId>
+          <artifactId>tio-http-server</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.t-io</groupId>
+          <artifactId>tio-http-common</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+      </dependency>
 
-    <dependency>
+      <dependency>
       <groupId>io.lettuce</groupId>
       <artifactId>lettuce-core</artifactId>
       <version>5.1.5.RELEASE</version>
@@ -75,9 +87,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.greenrobot</groupId>
-      <artifactId>eventbus</artifactId>
-      <version>3.1.1</version>
+      <groupId>com.boundary</groupId>
+      <artifactId>high-scale-lib</artifactId>
+      <version>1.0.6</version>
     </dependency>
 
     <dependency>
@@ -90,13 +102,6 @@
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
       <version>0.9.11</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.java-websocket</groupId>
-      <artifactId>Java-WebSocket</artifactId>
-      <version>1.4.0</version>
-      <scope>runtime</scope>
     </dependency>
 
     <!-- slf4j-logback绑定 -->

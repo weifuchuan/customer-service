@@ -7,7 +7,7 @@ import com.fuchuan.customerservice.db.IDao;
 import com.fuchuan.customerservice.server.handler.BaseActualHandler;
 import com.fuchuan.customerservice.server.handler.HandlerForCommand;
 import org.tio.core.ChannelContext;
-import org.tio.websocket.common.WsRequest;
+import com.fuchuan.customerservice.server.websocket.common.WsRequest;
 
 @HandlerForCommand(Command.COMMAND_CLEAR_REMIND_REQ)
 public class ClearRemindHandler extends BaseActualHandler {

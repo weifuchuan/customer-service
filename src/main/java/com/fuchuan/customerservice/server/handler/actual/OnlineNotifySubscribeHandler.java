@@ -1,6 +1,5 @@
 package com.fuchuan.customerservice.server.handler.actual;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
 import com.alibaba.fastjson.JSONArray;
 import com.fuchuan.customerservice.common.AccountBaseInfo;
 import com.fuchuan.customerservice.common.Command;
@@ -12,13 +11,15 @@ import com.fuchuan.customerservice.kit.TioKit;
 import com.fuchuan.customerservice.server.handler.*;
 import com.jfinal.kit.Kv;
 import io.reactivex.disposables.Disposable;
+import org.cliffc.high_scale_lib.NonBlockingHashMap;
+import org.cliffc.high_scale_lib.NonBlockingHashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.ChannelContext;
 import org.tio.core.Tio;
 import org.tio.utils.lock.ReadLockHandler;
 import org.tio.utils.lock.SetWithLock;
-import org.tio.websocket.common.WsRequest;
+import com.fuchuan.customerservice.server.websocket.common.WsRequest;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -30,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class OnlineNotifySubscribeHandler extends BaseActualHandler {
   private static final Logger log = LoggerFactory.getLogger(OnlineNotifySubscribeHandler.class);
 
-  private final ConcurrentHashMap<String, WhoSetAndSubscribed> idToWS = new ConcurrentHashMap<>();
+  private final NonBlockingHashMap<String, WhoSetAndSubscribed> idToWS = new NonBlockingHashMap<>();
 
   public OnlineNotifySubscribeHandler(IDao dao) {
     super(dao);
@@ -51,14 +52,12 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
             ctx.getId(),
             (id, _ws) -> {
               if (_ws == null) {
-                _ws = new WhoSetAndSubscribed(new ConcurrentHashSet<>(), new AtomicBoolean(false));
+                _ws = new WhoSetAndSubscribed(new NonBlockingHashSet<>(), new AtomicBoolean(false));
               }
               return _ws;
             });
 
     ws.whoSet.addAll(who.toJavaList(String.class));
-
-    log.info("{} subscribed {}", me.getNickName(), ws.whoSet);
 
     // if this context is unsubscribed
     if (!ws.subscribed.getAndSet(true)) {
@@ -77,8 +76,6 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
                   // if account is subscribed by me
                   if (ws.whoSet.contains(context.userid) && account.getId() != me.getId()) {
                     // push online notify to me
-                    log.info(
-                        "push [{}] online notify to [{}]", account.getNickName(), me.getNickName());
                     TioKit.sendWsByText(
                         ctx,
                         new ImPacket<OnlineOfflinePushPayload>()
@@ -102,10 +99,6 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
                     AccountBaseInfo account = (AccountBaseInfo) context.getAttribute("account");
 
                     if (ws.whoSet.contains(context.userid)) {
-                      log.info(
-                          "push [{}] offline notify to [{}]",
-                          account.getNickName(),
-                          me.getNickName());
                       TioKit.sendWsByText(
                           ctx,
                           new ImPacket<OnlineOfflinePushPayload>()
@@ -140,10 +133,6 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
                                 if (id.equals(context.userid)) {
                                   AccountBaseInfo account =
                                       (AccountBaseInfo) context.getAttribute("account");
-                                  log.info(
-                                      "push [{}] online notify to [{}]",
-                                      account.getNickName(),
-                                      me.getNickName());
                                   TioKit.sendWsByText(
                                       ctx,
                                       new ImPacket<OnlineOfflinePushPayload>()
@@ -164,10 +153,10 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
   }
 
   private class WhoSetAndSubscribed {
-    final ConcurrentHashSet<String> whoSet;
+    final NonBlockingHashSet<String> whoSet;
     final AtomicBoolean subscribed;
 
-    private WhoSetAndSubscribed(ConcurrentHashSet<String> whoSet, AtomicBoolean subscribed) {
+    private WhoSetAndSubscribed(NonBlockingHashSet<String> whoSet, AtomicBoolean subscribed) {
       this.whoSet = whoSet;
       this.subscribed = subscribed;
     }

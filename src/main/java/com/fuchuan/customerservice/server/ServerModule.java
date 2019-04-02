@@ -12,8 +12,8 @@ import com.fuchuan.customerservice.server.listener.MainListener;
 import org.codejargon.feather.Provides;
 import org.tio.core.stat.IpStatListener;
 import org.tio.utils.jfinal.Prop;
-import org.tio.websocket.server.WsServerAioListener;
-import org.tio.websocket.server.handler.IWsMsgHandler;
+import com.fuchuan.customerservice.server.websocket.server.WsServerAioListener;
+import com.fuchuan.customerservice.server.websocket.server.handler.IWsMsgHandler;
 
 import javax.inject.Singleton;
 
