@@ -252,14 +252,6 @@ public enum Command
    * <code>COMMAND_ONLINE_NOTIFY_SUBSCRIBE_REQ = 30;</code>
    */
   COMMAND_ONLINE_NOTIFY_SUBSCRIBE_REQ(30),
-  /**
-   * <pre>
-   * 测试传输文件
-   * </pre>
-   *
-   * <code>COMMAND_TEST_FILE_REQ = 31;</code>
-   */
-  COMMAND_TEST_FILE_REQ(31),
   UNRECOGNIZED(-1),
   ;
 
@@ -507,14 +499,6 @@ public enum Command
    * <code>COMMAND_ONLINE_NOTIFY_SUBSCRIBE_REQ = 30;</code>
    */
   public static final int COMMAND_ONLINE_NOTIFY_SUBSCRIBE_REQ_VALUE = 30;
-  /**
-   * <pre>
-   * 测试传输文件
-   * </pre>
-   *
-   * <code>COMMAND_TEST_FILE_REQ = 31;</code>
-   */
-  public static final int COMMAND_TEST_FILE_REQ_VALUE = 31;
 
 
   public final int getNumber() {
@@ -532,54 +516,6 @@ public enum Command
   public static Command valueOf(int value) {
     return forNumber(value);
   }
-
-  Command(int value) {
-    this.value = value;
-  }
-
-  public static com.google.protobuf.Internal.EnumLiteMap<Command>
-  internalGetValueMap() {
-    return internalValueMap;
-  }
-
-  private static final com.google.protobuf.Internal.EnumLiteMap<
-    Command> internalValueMap =
-    new com.google.protobuf.Internal.EnumLiteMap<Command>() {
-      public Command findValueByNumber(int number) {
-        return Command.forNumber(number);
-      }
-    };
-
-  public final com.google.protobuf.Descriptors.EnumValueDescriptor
-  getValueDescriptor() {
-    return getDescriptor().getValues().get(ordinal());
-  }
-
-  public final com.google.protobuf.Descriptors.EnumDescriptor
-  getDescriptorForType() {
-    return getDescriptor();
-  }
-
-  public static final com.google.protobuf.Descriptors.EnumDescriptor
-  getDescriptor() {
-    return com.fuchuan.customerservice.common.CustomerServiceGrpc.getDescriptor().getEnumTypes().get(0);
-  }
-
-  private static final Command[] VALUES = values();
-
-  public static Command valueOf(
-    com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-    if (desc.getType() != getDescriptor()) {
-      throw new java.lang.IllegalArgumentException(
-        "EnumValueDescriptor is not for this type.");
-    }
-    if (desc.getIndex() == -1) {
-      return UNRECOGNIZED;
-    }
-    return VALUES[desc.getIndex()];
-  }
-
-  private final int value;
 
   public static Command forNumber(int value) {
     switch (value) {
@@ -614,10 +550,53 @@ public enum Command
       case 29: return COMMAND_OFFLINE_PUSH;
       case 27: return COMMAND_CLEAR_REMIND_REQ;
       case 30: return COMMAND_ONLINE_NOTIFY_SUBSCRIBE_REQ;
-      case 31:
-        return COMMAND_TEST_FILE_REQ;
       default: return null;
     }
+  }
+
+  public static com.google.protobuf.Internal.EnumLiteMap<Command>
+      internalGetValueMap() {
+    return internalValueMap;
+  }
+  private static final com.google.protobuf.Internal.EnumLiteMap<
+      Command> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<Command>() {
+          public Command findValueByNumber(int number) {
+            return Command.forNumber(number);
+          }
+        };
+
+  public final com.google.protobuf.Descriptors.EnumValueDescriptor
+      getValueDescriptor() {
+    return getDescriptor().getValues().get(ordinal());
+  }
+  public final com.google.protobuf.Descriptors.EnumDescriptor
+      getDescriptorForType() {
+    return getDescriptor();
+  }
+  public static final com.google.protobuf.Descriptors.EnumDescriptor
+      getDescriptor() {
+    return com.fuchuan.customerservice.common.CustomerServiceGrpc.getDescriptor().getEnumTypes().get(0);
+  }
+
+  private static final Command[] VALUES = values();
+
+  public static Command valueOf(
+      com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+    if (desc.getType() != getDescriptor()) {
+      throw new java.lang.IllegalArgumentException(
+        "EnumValueDescriptor is not for this type.");
+    }
+    if (desc.getIndex() == -1) {
+      return UNRECOGNIZED;
+    }
+    return VALUES[desc.getIndex()];
+  }
+
+  private final int value;
+
+  private Command(int value) {
+    this.value = value;
   }
 
   // @@protoc_insertion_point(enum_scope:com.fuchuan.customerservice.common.Command)

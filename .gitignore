@@ -17,4 +17,8 @@ target/
 
 *.log*
 
+*.dmp
+
+*.trc
+
 src/main/proto-ts/node_modules

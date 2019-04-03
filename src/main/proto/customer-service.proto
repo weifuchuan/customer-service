@@ -48,7 +48,7 @@ enum Command {
     COMMAND_CLEAR_REMIND_REQ = 27; // 清除某room的remind
 
     COMMAND_ONLINE_NOTIFY_SUBSCRIBE_REQ = 30; // 订阅 上线通知
-    v
+
 }
 
 enum Code {
