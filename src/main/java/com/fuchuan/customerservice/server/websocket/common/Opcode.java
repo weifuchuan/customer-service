@@ -5,7 +5,6 @@ import java.util.Map;
 
 /** @author tanyaowu 2017年6月30日 下午5:06:09 */
 public enum Opcode {
-  CONTINUATION((byte) 0), // add by fuchuan
   TEXT((byte) 1),
   BINARY((byte) 2),
   CLOSE((byte) 8),
@@ -26,7 +25,7 @@ public enum Opcode {
 
   private final byte code;
 
-  private Opcode(byte code) {
+  Opcode(byte code) {
     this.code = code;
   }
 

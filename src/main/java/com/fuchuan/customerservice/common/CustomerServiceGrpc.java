@@ -73,7 +73,7 @@ public final class CustomerServiceGrpc {
       "erservice.common.AccountBaseInfo\"O\n\007Wait" +
       "ers\022D\n\007account\030\001 \003(\01323.com.fuchuan.custo" +
       "merservice.common.AccountBaseInfo\"\014\n\nWai" +
-      "tersReq*\325\006\n\007Command\022\022\n\016COMMAND_UNKNOW\020\000\022" +
+        "tersReq*\360\006\n\007Command\022\022\n\016COMMAND_UNKNOW\020\000\022" +
       "\031\n\025COMMAND_HANDSHAKE_REQ\020\001\022\032\n\026COMMAND_HA" +
       "NDSHAKE_RESP\020\002\022\024\n\020COMMAND_AUTH_REQ\020\003\022\025\n\021" +
       "COMMAND_AUTH_RESP\020\004\022\032\n\026COMMAND_JOIN_GROU" +
@@ -94,21 +94,22 @@ public final class CustomerServiceGrpc {
       "COMMAND_REMIND_PUSH\020\032\022\027\n\023COMMAND_ONLINE_" +
       "PUSH\020\034\022\030\n\024COMMAND_OFFLINE_PUSH\020\035\022\034\n\030COMM" +
       "AND_CLEAR_REMIND_REQ\020\033\022\'\n#COMMAND_ONLINE" +
-      "_NOTIFY_SUBSCRIBE_REQ\020\036*!\n\004Code\022\006\n\002OK\020\000\022" +
-      "\021\n\004FAIL\020\377\377\377\377\377\377\377\377\377\001* \n\004Role\022\014\n\010CUSTOMER\020\000" +
-      "\022\n\n\006WAITER\020\0012\242\003\n\016AccountService\022\201\001\n\rFetc" +
-      "hBaseInfo\0226.com.fuchuan.customerservice." +
-      "common.AccountBaseInfoReq\0328.com.fuchuan." +
-      "customerservice.common.AccountBaseInfoRe" +
-      "ply\022\236\001\n\030FetchAccountListBaseInfo\022?.com.f" +
-      "uchuan.customerservice.common.FetchAccou" +
-      "ntListBaseInfoReq\032A.com.fuchuan.customer" +
-      "service.common.FetchAccountListBaseInfoR" +
-      "eply\022k\n\014FetchWaiters\022..com.fuchuan.custo" +
-      "merservice.common.WaitersReq\032+.com.fuchu" +
-      "an.customerservice.common.WaitersB@\n\"com" +
-      ".fuchuan.customerservice.commonB\023Custome" +
-      "rServiceGrpcP\001\242\002\002CSb\006proto3"
+        "_NOTIFY_SUBSCRIBE_REQ\020\036\022\031\n\025COMMAND_TEST_" +
+        "FILE_REQ\020\037*!\n\004Code\022\006\n\002OK\020\000\022\021\n\004FAIL\020\377\377\377\377\377" +
+        "\377\377\377\377\001* \n\004Role\022\014\n\010CUSTOMER\020\000\022\n\n\006WAITER\020\0012" +
+        "\242\003\n\016AccountService\022\201\001\n\rFetchBaseInfo\0226.c" +
+        "om.fuchuan.customerservice.common.Accoun" +
+        "tBaseInfoReq\0328.com.fuchuan.customerservi" +
+        "ce.common.AccountBaseInfoReply\022\236\001\n\030Fetch" +
+        "AccountListBaseInfo\022?.com.fuchuan.custom" +
+        "erservice.common.FetchAccountListBaseInf" +
+        "oReq\032A.com.fuchuan.customerservice.commo" +
+        "n.FetchAccountListBaseInfoReply\022k\n\014Fetch" +
+        "Waiters\022..com.fuchuan.customerservice.co" +
+        "mmon.WaitersReq\032+.com.fuchuan.customerse" +
+        "rvice.common.WaitersB@\n\"com.fuchuan.cust" +
+        "omerservice.commonB\023CustomerServiceGrpcP" +
+        "\001\242\002\002CSb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

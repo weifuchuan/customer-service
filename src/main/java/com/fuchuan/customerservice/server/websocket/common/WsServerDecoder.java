@@ -3,49 +3,18 @@ package com.fuchuan.customerservice.server.websocket.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.core.ChannelContext;
-import org.tio.core.Tio;
 import org.tio.core.exception.AioDecodeException;
 import org.tio.core.utils.ByteBufferUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.List;
 
 /** @author tanyaowu 2017年7月30日 上午10:10:50 */
 public class WsServerDecoder {
-  public static enum Step {
-    header,
-    remain_header,
-    data,
-  }
-
-  private static Logger log = LoggerFactory.getLogger(WsServerDecoder.class);
-
-  /*
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-------+-+-------------+-------------------------------+
-  |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
-  |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
-  |N|V|V|V|       |S|             |   (if payload len==126/127)   |
-  | |1|2|3|       |K|             |                               |
-  +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
-  |     Extended payload length continued, if payload len == 127  |
-  + - - - - - - - - - - - - - - - +-------------------------------+
-  |                               |Masking-key, if MASK set to 1  |
-  +-------------------------------+-------------------------------+
-  | Masking-key (continued)       |          Payload Data         |
-  +-------------------------------- - - - - - - - - - - - - - - - +
-  :                     Payload Data continued ...                :
-  + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
-  |                     Payload Data continued ...                |
-  +---------------------------------------------------------------+
-  */
-
   public static WsRequest decode(ByteBuffer buf, ChannelContext channelContext)
-      throws AioDecodeException {
+    throws AioDecodeException {
     WsSessionContext imSessionContext = (WsSessionContext) channelContext.getAttribute();
-    List<byte[]> lastParts = imSessionContext.getLastParts();
+    //		List<byte[]> lastParts = imSessionContext.getLastParts();
 
     // 第一阶段解析
     int initPosition = buf.position();
@@ -57,7 +26,7 @@ public class WsServerDecoder {
       return null;
     }
 
-    byte first = buf.get(); // 0,1,2,3,4,5,6,7 位
+    byte first = buf.get();
     //		int b = first & 0xFF; //转换成32位
     boolean fin = (first & 0x80) > 0; // 得到第8位 10000000>0
     @SuppressWarnings("unused")
@@ -68,23 +37,23 @@ public class WsServerDecoder {
       //			Tio.remove(channelContext, "收到opcode:" + opcode);
       //			return null;
     }
-    if (!fin) {
-      log.error("{} 暂时不支持fin为false的请求", channelContext);
-      Tio.remove(channelContext, "暂时不支持fin为false的请求");
-      return null;
-      // 下面这段代码不要删除，以后若支持fin，则需要的
-      //			if (lastParts == null) {
-      //				lastParts = new ArrayList<>();
-      //				imSessionContext.setLastParts(lastParts);
-      //			}
-    } else {
-      imSessionContext.setLastParts(null);
-    }
+    //		if (!fin) {
+    //			log.error("{} 暂时不支持fin为false的请求", channelContext);
+    //			Tio.remove(channelContext, "暂时不支持fin为false的请求");
+    //			return null;
+    //			//下面这段代码不要删除，以后若支持fin，则需要的
+    //			//			if (lastParts == null) {
+    //			//				lastParts = new ArrayList<>();
+    //			//				imSessionContext.setLastParts(lastParts);
+    //			//			}
+    //		} else {
+    //			imSessionContext.setLastParts(null);
+    //		}
 
     byte second = buf.get(); // 向后读取一个字节
     boolean hasMask =
-        (second & 0xFF) >> 7
-            == 1; // 用于标识PayloadData是否经过掩码处理。如果是1，Masking-key域的数据即是掩码密钥，用于解码PayloadData。客户端发出的数据帧需要进行掩码处理，所以此位是1。
+      (second & 0xFF) >> 7
+        == 1; // 用于标识PayloadData是否经过掩码处理。如果是1，Masking-key域的数据即是掩码密钥，用于解码PayloadData。客户端发出的数据帧需要进行掩码处理，所以此位是1。
 
     // Client data must be masked
     if (!hasMask) { // 第9为为mask,必须为1
@@ -144,39 +113,51 @@ public class WsServerDecoder {
       }
     }
 
-    if (!fin) {
-      // lastParts.add(array);
-      log.error(
-          "payloadLength {}, lastParts size {}, array length {}",
-          payloadLength,
-          lastParts.size(),
-          array.length);
-      return websocketPacket;
-    } else {
-      int allLength = array.length;
-      if (lastParts != null) {
-        for (byte[] part : lastParts) {
-          allLength += part.length;
-        }
-        byte[] allByte = new byte[allLength];
+    websocketPacket.setBody(array);
 
-        int offset = 0;
-        for (byte[] part : lastParts) {
-          System.arraycopy(part, 0, allByte, offset, part.length);
-          offset += part.length;
-        }
-        System.arraycopy(array, 0, allByte, offset, array.length);
-        array = allByte;
-      }
+    //		if (!fin) {
+    //			//lastParts.add(array);
+    //			log.error("payloadLength {}, lastParts size {}, array length {}", payloadLength,
+    // lastParts.size(), array.length);
+    //			return websocketPacket;
+    //		} else {
+    //			int allLength = array.length;
+    //			if (lastParts != null) {
+    //				for (byte[] part : lastParts) {
+    //					allLength += part.length;
+    //				}
+    //				byte[] allByte = new byte[allLength];
+    //
+    //				int offset = 0;
+    //				for (byte[] part : lastParts) {
+    //					System.arraycopy(part, 0, allByte, offset, part.length);
+    //					offset += part.length;
+    //				}
+    //				System.arraycopy(array, 0, allByte, offset, array.length);
+    //				array = allByte;
+    //			}
+    //
+    //			websocketPacket.setBody(array);
+    //
+    //			if (opcode == Opcode.BINARY) {
+    //
+    //			} else {
+    //				try {
+    //					String text = null;
+    //					text = new String(array, WsPacket.CHARSET_NAME);
+    //					websocketPacket.setWsBodyText(text);
+    //				} catch (UnsupportedEncodingException e) {
+    //					log.error(e.toString(), e);
+    //				}
+    //			}
+    //		}
 
-      websocketPacket.setBody(array);
-
+    if (fin && opcode != null) {
       if (opcode == Opcode.BINARY) {
 
       } else {
         try {
-          String text = null;
-          text = new String(array, WsPacket.CHARSET_NAME);
+          String text = new String(array, WsPacket.CHARSET_NAME);
           websocketPacket.setWsBodyText(text);
         } catch (UnsupportedEncodingException e) {
           log.error(e.toString(), e);
@@ -184,6 +165,14 @@ public class WsServerDecoder {
       }
     }
     return websocketPacket;
+  }
+
+  private static Logger log = LoggerFactory.getLogger(WsServerDecoder.class);
+
+  public enum Step {
+    header,
+    remain_header,
+    data,
   }
 
   /** @author tanyaowu 2017年2月22日 下午4:06:42 */
