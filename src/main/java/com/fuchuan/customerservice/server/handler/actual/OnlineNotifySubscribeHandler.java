@@ -70,7 +70,7 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
                 if (type.equals("handshaked")) {
                   // somebody has online
                   String ctxId = (String) kv.get("ctxId");
-                  ChannelContext context = Tio.getChannelContextById(ctx.groupContext, ctxId);
+                  ChannelContext context = Tio.getChannelContextById(ctx.tioConfig, ctxId);
                   if (context == null) return;
                   AccountBaseInfo account = (AccountBaseInfo) context.getAttribute("account");
 
@@ -98,7 +98,7 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
                   } else {
                     // somebody offline
                     String ctxId = (String) kv.get("ctxId");
-                    ChannelContext context = Tio.getChannelContextById(ctx.groupContext, ctxId);
+                    ChannelContext context = Tio.getChannelContextById(ctx.tioConfig, ctxId);
                     if (context == null) return;
                     AccountBaseInfo account = (AccountBaseInfo) context.getAttribute("account");
 
@@ -127,7 +127,7 @@ public class OnlineNotifySubscribeHandler extends BaseActualHandler {
             id -> {
               if (dao.isOnline((String) id)) {
                 SetWithLock<ChannelContext> contexts =
-                    Tio.getChannelContextsByUserid(ctx.groupContext, (String) id);
+                    Tio.getChannelContextsByUserid(ctx.tioConfig, (String) id);
                 if (contexts != null)
                   contexts.handle(
                       (ReadLockHandler<Set<ChannelContext>>)

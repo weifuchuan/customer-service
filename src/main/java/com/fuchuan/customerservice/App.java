@@ -36,8 +36,13 @@ public class App {
                     ConfigKit.createConfigObject(
                         config.getProperties(), ImServerConfig.class, "http");
                 HttpServerStarter starter =
-                    new HttpServerStarter(
-                        httpConfig, new DefaultHttpRequestHandler(httpConfig, App.class));
+                  null;
+                try {
+                  starter = new HttpServerStarter(
+                      httpConfig, new DefaultHttpRequestHandler(httpConfig, App.class));
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
                 try {
                   starter.start();
                 } catch (IOException e) {

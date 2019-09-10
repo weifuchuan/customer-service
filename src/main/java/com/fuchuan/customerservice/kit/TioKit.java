@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.tio.cluster.TioClusterConfig;
 import org.tio.cluster.TioClusterVo;
 import org.tio.core.ChannelContext;
-import org.tio.core.GroupContext;
+import org.tio.core.TioConfig;
 import org.tio.core.Tio;
 import org.tio.core.intf.Packet;
 import org.tio.utils.lock.SetWithLock;
@@ -28,7 +28,7 @@ public class TioKit {
 
   public static boolean sendWSToUserIdByText(ChannelContext ctx, String userId, ImPacket packet) {
     return Tio.sendToUser(
-        ctx.groupContext,
+        ctx.tioConfig,
         userId,
         WsResponse.fromText(ImPacketCoder.encodeToString(packet), "UTF-8"));
   }
@@ -38,14 +38,14 @@ public class TioKit {
     return ctxs.parallelStream().map(c -> sendWsByText(c, packet)).collect(Collectors.toList());
   }
 
-  public static void notifyClusterForAll(GroupContext groupContext, Packet packet) {
+  public static void notifyClusterForAll(TioConfig groupContext, Packet packet) {
     TioClusterConfig tioClusterConfig = groupContext.getTioClusterConfig();
     TioClusterVo tioClusterVo = new TioClusterVo(packet);
     tioClusterVo.setToAll(true);
     tioClusterConfig.publish(tioClusterVo);
   }
 
-  public static void notifyClusterForAll(GroupContext groupContext, ImPacket packet) {
+  public static void notifyClusterForAll(TioConfig groupContext, ImPacket packet) {
     notifyClusterForAll(
         groupContext, WsResponse.fromText(ImPacketCoder.encodeToString(packet), "UTF-8"));
   }
