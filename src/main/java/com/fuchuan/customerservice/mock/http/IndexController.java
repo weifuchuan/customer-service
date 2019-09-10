@@ -10,19 +10,16 @@ import org.tio.http.server.util.Resps;
 
 @RequestPath("/cs")
 public class IndexController {
-  static LRUCache<String,String> cache = new LRUCache<>(100, 1000);
 
   @RequestPath("/customer")
   public HttpResponse customer(HttpRequest request) {
-//    String html = HttpUtil.createGet("https://fuchuansia.github.io/cs/customer.html").execute().body();
-        String html = FileUtil.readString("webapp/customer.html", "utf-8");
+    String html = FileUtil.readString("webapp/customer.html", "utf-8");
     return Resps.html(request, html);
   }
 
   @RequestPath("/waiter")
   public HttpResponse waiter(HttpRequest request) {
-//    String html = HttpUtil.createGet("https://fuchuansia.github.io/cs/waiter.html").execute().body();
-        String html = FileUtil.readString("webapp/waiter.html", "utf-8");
+    String html = FileUtil.readString("webapp/waiter.html", "utf-8");
     return Resps.html(request, html);
   }
 }

@@ -114,7 +114,7 @@
   <body>
     <h1>TEST 客服端 <a href="/cs/customer">客户端</a></h1>
     <p>Note: id = {1008601, 1008602, 1008603} 都作为客服账号</p>
-    <label>id: </label><input type="url" id="url" /><button id="render">
+    <label>id: </label><input id="id" /><button id="render">
       render
     </button>
     <noscript>
@@ -123,18 +123,7 @@
     <div id="root"></div>
 
     <script>
-      var renderBtn = document.getElementById("render");
-      var urlInput = document.getElementById("url");
-
-      renderBtn.onclick = function() {
-        if (urlInput.value) {
-          window.render({
-            url: "ws://127.0.0.1:7777?id=" + urlInput.value
-          })
-        } else {
-          window.render()
-        }
-      };
+      
     </script>
-  <script type="text/javascript" src="https://fuchuansia.github.io/cs/static/js/waiter.52e0.bundle.js"></script></body>
+  <script type="text/javascript" src="/static/js/waiter.53d7.bundle.js"></script></body>
 </html>

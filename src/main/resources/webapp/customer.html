@@ -114,26 +114,14 @@
 <body>
   <h1>TEST 客户端 <a href="/cs/waiter">客服端</a></h1>
   <p>Note: id = {1008601, 1008602, 1008603} 都作为客服账号</p>
-  <label>id: </label><input type="url" id="url"><button id="render">render</button>
+  <label>id: </label><input id="id"><button id="render">render</button>
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
 
-  <script>
-    var renderBtn = document.getElementById("render");
-    var urlInput = document.getElementById("url");
-
-    renderBtn.onclick = function() {
-      if (urlInput.value) {
-        window.render({
-          url: "ws://127.0.0.1:7777?id=" + urlInput.value
-        })
-      } else {
-        window.render()
-      }
-    };
+  <script> 
   </script>
-<script type="text/javascript" src="https://fuchuansia.github.io/cs/static/js/customer.ba9c.bundle.js"></script></body>
+<script type="text/javascript" src="/static/js/customer.70bc.bundle.js"></script></body>
 
 </html>
