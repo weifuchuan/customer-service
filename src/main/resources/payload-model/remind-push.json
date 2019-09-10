@@ -1,0 +1,21 @@
+{
+  "content": {
+    "type": "string",
+    "comment": "消息内容"
+  },
+  "sendAt": {
+    "type": "long"
+  },
+  "from": {
+    "type": "string"
+  },
+  "to": {
+    "type": "string"
+  },
+  "roomKey": {
+    "type": "string"
+  },
+  "msgKey": {
+    "type": "string"
+  }
+}

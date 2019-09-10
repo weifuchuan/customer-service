@@ -1,0 +1,8 @@
+{
+  "userId": {
+    "type": "string"
+  },
+  "localOnlineCountForUserId": {
+    "type": "int"
+  }
+}

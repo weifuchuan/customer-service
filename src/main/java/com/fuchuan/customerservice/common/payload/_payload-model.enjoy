@@ -1,0 +1,24 @@
+package com.fuchuan.customerservice.common.payload;
+
+import java.util.Map;
+
+public class #(name) extends BasePayload {
+#for(prop : props)
+  #(prop.comment?"// "+prop.comment:"")
+  public #(name) set#(firstCharToUpperCase(prop.name))(#(prop.type) #(prop.name)) {
+    set("#(prop.name)", #(prop.name));
+    return this;
+  }
+
+  #(prop.optional?"@Optional":"")#(prop.comment?"// "+prop.comment:"")
+  public #(prop.type) #(prop.type.toLowerCase().startsWith("bool") ? "is" : "get")#(firstCharToUpperCase(prop.name))() {
+    return (#(prop.type))get("#(prop.name)");
+  }
+#end
+
+  public static #(name) from(Map obj) {
+    #(name) model = new #(name)();
+    model.set(obj);
+    return model;
+  }
+}

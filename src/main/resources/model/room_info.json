@@ -1,0 +1,20 @@
+{
+  "type": {
+    "type": "int",
+    "optional": false,
+    "comment": "聊天室类型：1对1（1）、群聊（2）"
+  },
+  "name": {
+    "type": "string",
+    "optional": true,
+    "comment": "群聊的名字"
+  },
+  "id": {
+    "type": "string",
+    "optional": true,
+    "comment": "群聊的id"
+  },
+  "roomKey": {
+    "type": "string"
+  }
+}

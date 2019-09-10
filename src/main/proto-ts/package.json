@@ -1,0 +1,22 @@
+{
+  "name": "proto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@improbable-eng/grpc-web": "^0.9.1",
+    "browser-headers": "^0.4.1",
+    "google-protobuf": "^3.7.1",
+    "ts-protoc-gen": "^0.9.0"
+  },
+  "devDependencies": {
+    "@bazel/karma": "^0.21.0",
+    "@bazel/typescript": "^0.21.0",
+    "@types/google-protobuf": "^3.2.7",
+    "typescript": "^3.1.1"
+  },
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC"
+}

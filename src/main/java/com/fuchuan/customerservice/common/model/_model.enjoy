@@ -1,0 +1,29 @@
+package com.fuchuan.customerservice.common.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class #(name) extends HashMap {
+  #for(prop: props)
+  #(prop.comment?"// "+prop.comment:"")
+  public #(name) set#(firstCharToUpperCase(prop.name))(#(prop.type) #(prop.name)) {
+    return set("#(prop.name)", #(prop.name));
+  }
+
+  #(prop.optional?"@Optional":"")#(prop.comment?"// "+prop.comment:"")
+  public #(prop.type) #(prop.type.toLowerCase().startsWith("bool") ? "is" : "get")#(firstCharToUpperCase(prop.name))() {
+    return (#(prop.type))get("#(prop.name)");
+  }
+  #end
+
+  public #(name) set(String key, Object val) {
+    put(key, val);
+    return this;
+  }
+
+  public static #(name) from(Map obj) {
+      #(name) model = new #(name)();
+      model.putAll(obj);
+      return model;
+  }
+}

@@ -1,0 +1,27 @@
+# Eclipse
+.classpath
+.project
+.settings/
+ 
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
+
+*.log*
+
+*.dmp
+
+*.trc
+
+src/main/proto-ts/node_modules
+
+javacore*.txt
+src/main/resources/config.properties

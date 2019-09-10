@@ -1,0 +1,14 @@
+{
+  "to": {
+    "type": "string",
+    "comment": "发送到 用户id || 群号"
+  },
+  "type": {
+    "type": "int",
+    "comment": "聊天室类型：1对1（1）、群聊（2）"
+  },
+  "content": {
+    "type": "string",
+    "comment": "内容"
+  }
+}

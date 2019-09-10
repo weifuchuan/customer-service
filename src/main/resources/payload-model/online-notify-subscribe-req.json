@@ -1,0 +1,6 @@
+{
+  "who": {
+    "type": "string[]",
+    "javaType": "com.alibaba.fastjson.JSONArray"
+  }
+}
